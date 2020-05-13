@@ -1,0 +1,17 @@
+#!/bin/sh
+
+MYDIR="$(dirname "$(readlink -fn "$0")")"
+
+test -z "$VIRTUAL_ENV" && {
+    test ! -f "$MYDIR/.venv/bin/activate" && virtualenv --python=python3 "$MYDIR/.venv"
+
+    export VIRTUAL_ENV_DISABLE_PROMPT=true
+    . "$MYDIR/.venv/bin/activate"
+
+    ! cmp -s "$MYDIR/requirements.txt" "$MYDIR/.venv/requirements.txt" && {
+        pip install -U -r "$MYDIR/requirements.txt"
+        cp "$MYDIR/requirements.txt" "$MYDIR/.venv/requirements.txt"
+    }
+} >/dev/null 2>&1
+
+PYTHONPATH="$MYDIR:$PYTHONPATH" exec python -m debian_vm_creator "$@"
