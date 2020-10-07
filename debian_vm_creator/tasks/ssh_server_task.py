@@ -4,7 +4,7 @@ from .base_task import BaseTask
 
 class SSHServerTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "ssh-server"
 
     @staticmethod

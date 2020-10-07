@@ -17,7 +17,7 @@ ff02::2		ip6-allrouters
 
 class HostnameTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "hostname"
 
     @staticmethod

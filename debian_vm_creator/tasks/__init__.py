@@ -4,6 +4,7 @@ from .chroot_task import ChrootTask
 from .docker_task import DockerTask
 from .hostname_task import HostnameTask
 from .keyboard_task import KeyboardTask
+from .libvirt_task import LibvirtTask
 from .locale_task import LocaleTask
 from .network_task import NetworkTask
 from .proxmox_task import ProxmoxTask

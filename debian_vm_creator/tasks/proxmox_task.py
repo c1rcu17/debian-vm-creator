@@ -4,14 +4,14 @@ from .base_task import BaseTask
 
 class ProxmoxTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "proxmox"
 
     @staticmethod
     def schema():
         return {
             "id": POSITIVE_INTEGER_RULE,
-            "description": MANDATORY_STRING_RULE,
+            "name": MANDATORY_STRING_RULE,
             "pool": MANDATORY_STRING_RULE,
             "memory": {"type": "dict", "schema": {"min": POSITIVE_INTEGER_RULE, "max": POSITIVE_INTEGER_RULE}},
             "cpus": POSITIVE_INTEGER_RULE,
@@ -27,7 +27,7 @@ class ProxmoxTask(BaseTask):
 
     def run(self):
         vmid = self.config["id"]
-        description = self.config["description"]
+        name = self.config["name"]
         pool = self.config["pool"]
         min_memory = self.config["memory"]["min"]
         max_memory = self.config["memory"]["max"]
@@ -35,7 +35,7 @@ class ProxmoxTask(BaseTask):
         cores = self.config["cores"]
         mac = self.config["network"]["mac"]
         bridge = self.config["network"]["bridge"]
-        full_name = "{} ({})".format(vmid, description)
+        full_name = "{} ({})".format(vmid, name)
         hdd_file = self.ctx.global_config.hdd_file
         hdd_name = "{}:vm-{}-disk-0".format(pool, vmid)
 
@@ -50,7 +50,7 @@ class ProxmoxTask(BaseTask):
             bridge,
         )
 
-        qm_args = ["qm", "create", str(vmid), "--name", description, "--machine", "q35", "--ostype", "l26"]
+        qm_args = ["qm", "create", str(vmid), "--name", name, "--machine", "q35", "--ostype", "l26"]
         qm_args.extend(["--balloon", str(min_memory), "--memory", str(max_memory)])
         qm_args.extend(["--cpu", "host,flags=+aes", "--sockets", str(cpus), "--cores", str(cores)])
         qm_args.extend(["--scsihw", "virtio-scsi-pci", "--net0", "virtio={},bridge={}".format(mac, bridge)])

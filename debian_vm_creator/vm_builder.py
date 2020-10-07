@@ -35,7 +35,7 @@ class VmBuilder:
     __task_schemas_by_name = {}
 
     for task_type in BaseTask.__subclasses__():
-        task_name = task_type.name()
+        task_name = task_type.task_name()
         __task_names.append(task_name)
         __task_types.append(task_type)
         __task_types_by_name[task_name] = task_type
@@ -46,7 +46,7 @@ class VmBuilder:
         "hdd-file": MANDATORY_STRING_RULE,
         "tasks": {
             "type": "list",
-            "schema": {"type": "dict", "allow_unknown": True, "schema": {"name": {"type": "string", "allowed": __task_names}}},
+            "schema": {"type": "dict", "allow_unknown": True, "schema": {"task": {"type": "string", "allowed": __task_names}}},
         },
     }
 
@@ -63,7 +63,7 @@ class VmBuilder:
         self.ctx = ContextCollection(global_config_coerced)
 
         for task_config in task_configs:
-            task_name = task_config.pop("name")
+            task_name = task_config.pop("task")
             self.add_task(task_name, task_config)
 
     def add_task(self, task_name, task_config):
@@ -84,11 +84,11 @@ class VmBuilder:
 
     def system_check(self):
         for task in self.tasks:
-            self.ctx.log.message("System check for task '{}'", task.__class__.name())
+            self.ctx.log.message("System check for task '{}'", task.__class__.task_name())
             task.system_check()
 
     def run_task(self, task):
-        self.ctx.log.message("Running task '{}'", task.__class__.name())
+        self.ctx.log.message("Running task '{}'", task.__class__.task_name())
         task.run()
 
     def run(self):
@@ -102,10 +102,6 @@ class VmBuilder:
                             break
 
                         self.run_task(self.tasks.pop(0))
-
-        # for task in self.tasks:
-        #     self.ctx.log.message("Running task '{}'", task.__class__.name())
-        #     task.run()
 
     def build(self):
         try:

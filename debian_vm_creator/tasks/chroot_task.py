@@ -3,7 +3,7 @@ from .base_task import BaseTask
 
 class ChrootTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "chroot"
 
     @staticmethod

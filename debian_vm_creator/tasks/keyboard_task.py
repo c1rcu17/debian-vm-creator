@@ -13,7 +13,7 @@ BACKSPACE="guess"
 
 class KeyboardTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "keyboard"
 
     @staticmethod

@@ -39,7 +39,7 @@ class HddStrategy:  # pylint: disable=too-few-public-methods
 
 class BootstrapTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "bootstrap"
 
     @staticmethod

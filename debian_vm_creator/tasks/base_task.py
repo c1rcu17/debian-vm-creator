@@ -8,7 +8,7 @@ class TaskException(AppException):
 
 class BaseTask:
     @staticmethod
-    def name() -> str:
+    def task_name() -> str:
         raise NotImplementedError
 
     @staticmethod

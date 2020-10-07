@@ -19,7 +19,7 @@ iface eth0 inet static
 
 class NetworkTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "network"
 
     @staticmethod

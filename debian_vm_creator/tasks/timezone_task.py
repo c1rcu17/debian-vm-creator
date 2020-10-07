@@ -9,7 +9,7 @@ TIMEZONE = """\
 
 class TimezoneTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "timezone"
 
     @staticmethod

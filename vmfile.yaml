@@ -1,24 +1,24 @@
 debug: true
 hdd-file: docker.qcow2
 tasks:
-  - name: bootstrap
-    hdd-size: 4
+  - task: bootstrap
+    hdd-size: 16
     hdd-strategy: reuse
     suite: buster
     mirror: http://ftp.pt.debian.org/debian
-  - name: locale
+  - task: locale
     default: en_US.UTF-8
     formats: pt_PT.UTF-8
-    language: 'en:pt'
-  - name: timezone
+    language: en
+  - task: timezone
     timezone: Europe/Lisbon
-  - name: keyboard
+  - task: keyboard
     model: pc105
     layout: pt
-  - name: hostname
-    hostname: docker
+  - task: hostname
+    hostname: k8s1
     domain: juenuno.com
-  - name: network
+  - task: network
     address: 10.0.0.64
     netmask: 255.255.255.0
     gateway: 10.0.0.1
@@ -27,27 +27,38 @@ tasks:
         - 10.0.0.2
       search:
         - juenuno.com
-  - name: root-user
+  - task: root-user
     key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCm0s3BsJwSup87qetHwcpIGyTyPXnzZqVlzwIX6obE5A8wJh4pkAAZW0DRH9hfVSwaQKxY54qCDDlGsJpVmtZn20KytG40vmgsa/Qkfkh4MnZzzohv7c1A/C/WgWB9/Jua76u98/U5fUuw6gXZYatqWNtIj7pERoOb4eN5+qIuNs66eGu8Ap/CYGTZcTs/pIUKKiKxyzdmhL9F2oOvJLohNLwcOozsCt8t0tkMoN2+t0lUjnIu7rLUfFU2l3fKO3LDuGqcO/Xia70NzQmrd8pV08zptXjJINnrF3Y1geugyz2RWlTe3S9B2FonAY22jyBI9mHp5nc/vefYiCiT+jWe9++Vl7i3WmT6rM0OXaZb47O2NV8nChVPEI9y2/uLYLhFyyKiFyoMv6cR6BgeQV11i/OiKvueHZqHJ3RLtIjX7K6oxfqAMzeaxKRuEQWwwxsxLs/ARUk6oz/yZujUkdAai/xYT/L+MdnxjdzsebJC8oaz8UZZSLYfMc1Gttr7c9fLGaOciCTCC1DE1gCfmtUDjAyXqhXCELphYud4f8ABIpx5DJfsPt6JJD2iu2iTOQbBxu50cBft9zWqCAEIwablOxkf3J5Q62E7iJsukpSe4+Lgl5AIM4iBhg8UVDHFVkprQr56NFC33WK0xxTyHOtckGRUZzM6R2bD6ydOrFsUXw==
     password: abc1234
-  - name: ssh-server
+  - task: ssh-server
     password-login: true
-  # - name: docker
-  #   tcp: true
+  # - task: docker
+  #   tcp-port: true
   #   compose: true
-  # - name: salt
+  # - task: salt
   #   master: true
   #   minion: true
-  - name: proxmox
-    id: 1002
-    description: docker
-    pool: s1pool
-    memory:
-      min: 512
-      max: 2048
-    cpus: 1
-    cores: 2
-    network:
-      mac: '00:11:22:33:10:02'
-      bridge: vmbr0
-  # - name: chroot
+  # - task: chroot
+  # - task: proxmox
+  #   id: 1002
+  #   name: docker
+  #   pool: s1pool
+  #   memory:
+  #     min: 512
+  #     max: 2048
+  #   cpus: 1
+  #   cores: 2
+  #   network:
+  #     mac: '00:11:22:33:10:02'
+  #     bridge: vmbr0
+  # - task: libvirt
+  #   id: 1002
+  #   name: docker
+  #   pool: s1pool
+  #   memory:
+  #     min: 512
+  #     max: 2048
+  #   cpus: 1
+  #   cores: 2
+  #   network:
+  #     mac: '00:11:22:33:10:02'

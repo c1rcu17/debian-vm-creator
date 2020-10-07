@@ -18,7 +18,7 @@ ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:{{ tcp_port }} --containerd
 
 class DockerTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "docker"
 
     @staticmethod

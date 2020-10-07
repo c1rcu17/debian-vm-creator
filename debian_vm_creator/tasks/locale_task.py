@@ -29,7 +29,7 @@ LC_IDENTIFICATION={{ formats }}
 
 class LocaleTask(BaseTask):
     @staticmethod
-    def name():
+    def task_name():
         return "locale"
 
     @staticmethod
